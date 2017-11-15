@@ -27,43 +27,55 @@ void setup() {
   pinMode(buttonPin, INPUT); // initialize the pin for button as input
 
   //servo1.write(pos) tells servo to go to position 'pos' (degrees)
-  
+
   servo1.write(readyPos); //servo1.write(intitialPos);
   delay(500); // waits x time for the servo to reach the position
 
 }
 
 void loop() {
-  
-    while ( servo1.read() > highFivePos && highFiveComplete == false && highFiveOccuring == true)
-    {
-       // goes from readyPos to highFivePos in steps of 1 degree
-      
-        buttonState = digitalRead(buttonPin);
-        servo1.write(pos);              // tell servo to go to position in variable 'pos'
-        delay(15);                       // waits 15ms for the servo to reach the position
-        if (buttonState == HIGH)
-        {
-          highFiveComplete = true;
-          pos = servo1.read();
-          break;
-        }
+highFive(170, 110, 170); //random arbritary values put in
+delay(1000);
+}
 
-        pos-=1;
-      
+
+
+void highFive(const int readyPos, const int highFivePos, const int finalPos)
+{
+
+  highFiveOccuring == true; //to remove at some point
+
+
+  while ( servo1.read() > highFivePos && highFiveComplete == false && highFiveOccuring == true)
+  {
+    // goes from readyPos to highFivePos in steps of 1 degree
+
+    buttonState = digitalRead(buttonPin);
+    servo1.write(pos);              // tell servo to go to position in variable 'pos'
+    delay(15);                       // waits 15ms for the servo to reach the position
+    if (buttonState == HIGH)
+    {
+      highFiveComplete = true;
+      pos = servo1.read();
+      break;
     }
 
-    while (servo1.read() < readyPos && highFiveOccuring == true)
-    {
-      servo1.write(pos); 
-      delay(15); 
-      pos += 1;
-      
-    }
-
-    highFiveOccuring = false;
-
+    pos -= 1;
 
   }
+
+
+  while (servo1.read() < finalPos && highFiveOccuring == true)
+  {
+    servo1.write(pos);
+    delay(15);
+    pos += 1;
+
+  }
+
+  highFiveOccuring = false;
+
+}
+
 
 
