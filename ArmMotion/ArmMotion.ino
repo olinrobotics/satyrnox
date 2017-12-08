@@ -1,82 +1,65 @@
 
 #include <Servo.h> //Servo library
 
-Servo servo1; //Creating servo object
-Servo servo2;
+Servo servo1, servo2; //Creating servo object
 
+//Pins servo is connected to
 
-//Pins button and servo are connected to
-const int buttonPin = 2;
-const int servo1Pin = 9;
-const int servo2Pin = 10
+const int servo1Pin = 3;
+const int servo2Pin = 4;
 
 //Preset Servo angle settings
 //const int initialPos;
-const int readyPos;
-const int highFivePos;
-const int finalPos;
+
+const int readyPos = 170;
+const int finalPos = 110;
 
 
 //Variables relating to state of button/servo
-bool highFiveOccuring = false;
-bool highFiveComplete = false;
-int buttonState = 0;
-int pos = readyPos;
+
+int pos;
 
 
 
 void setup() {
-  servo1.attach(servo1Pin); // attaches the servo on pin 9 to servo object
-  pinMode(buttonPin, INPUT); // initialize the pin for button as input
+  servo1.attach(servo1Pin);
+  servo2.attach(servo2Pin); // attaches the servo on pin 3 and 4 to servo object
 
   //servo1.write(pos) tells servo to go to position 'pos' (degrees)
 
-  servo1.write(readyPos); //servo1.write(intitialPos);
-  delay(500); // waits x time for the servo to reach the position
+  servo1.write(readyPos);
+  servo2.write(readyPos);
+  
+  //delay(15); // waits x time for the servo to reach the position
 
 }
 
 void loop() {
-highFive(170, 110, 170); //random arbritary values put in
-delay(1000);
+
+  for (int i = 1; i <= 3; i++)
+  {
+    wiggleArms();
+  }
 }
 
 
 
-void highFive(const int readyPos, const int highFivePos, const int finalPos)
+void wiggleArms()
 {
 
-  highFiveOccuring == true; //to remove at some point
-
-
-  while ( servo1.read() > highFivePos && highFiveComplete == false && highFiveOccuring == true)
-  {
-    // goes from readyPos to highFivePos in steps of 1 degree
-
-    buttonState = digitalRead(buttonPin);
-    servo1.write(pos);              // tell servo to go to position in variable 'pos'
+  for (pos = readyPos; pos <= finalPos; pos -= 5) { // goes from readyPos to finalPos
+    servo1.write(pos);              
+    servo2.write(pos);                // tell servo to go to position in variable 'pos'
     delay(15);                       // waits 15ms for the servo to reach the position
-    if (buttonState == HIGH)
-    {
-      highFiveComplete = true;
-      pos = servo1.read();
-      break;
-    }
-
-    pos -= 1;
-
   }
-
-
-  while (servo1.read() < finalPos && highFiveOccuring == true)
-  {
-    servo1.write(pos);
-    delay(15);
-    pos += 1;
-
+  for (pos = finalPos; pos >= readyPos; pos += 5) { // goes from finalPos to readyPos
+    // in steps of 1 degree
+    servo1.write(pos);              
+    servo2.write(pos);                // tell servo to go to position in variable 'pos'
+    delay(15);                       // waits 15ms for the servo to reach the position
   }
+  
 
-  highFiveOccuring = false;
 
 }
 
