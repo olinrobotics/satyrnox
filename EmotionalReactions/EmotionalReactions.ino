@@ -11,10 +11,10 @@ Servo LArmLift;
 Servo HeadRot;
 Servo HeadLift;
 
-//Pin button is connected to
-const int HandButton = 10;
+//Pin button and servos are connected to
 const int RArmLiftPin = 5;
 const int LArmLiftPin = 6;
+const int HandButton = 10;
 
 //Preset Servo angle settings
 //const int initialPos;
