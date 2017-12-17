@@ -67,17 +67,17 @@ void setup() {
 
 void loop() { //loop for testing
   //LArmLift.write(100);
-  highFive(readyPos, highFivePos, finalPos);
-  delay(5000);
+  //highFive(readyPos, highFivePos, finalPos);
+  //delay(5000);
   //highFiveOccuring = true;
 
 
-/*if (buttonState == HIGH) {
+if (buttonState == HIGH) {
     Serial.println("on");
   } else {
     Serial.println("off");
   }
-
+/*
 
 buttonState = digitalRead(HandButton);
 
